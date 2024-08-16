@@ -28,31 +28,12 @@ use std::thread;
 use subscription_cache::SubscriptionCache;
 use up_rust::core::usubscription::{FetchSubscriptionsRequest, SubscriberInfo, USubscription};
 use up_rust::{UCode, UListener, UMessage, UPayloadFormat, UStatus, UTransport, UUIDBuilder, UUri};
+use crate::uurihandler::*;
 
 const USTREAMER_TAG: &str = "UStreamer:";
 const USTREAMER_FN_NEW_TAG: &str = "new():";
 const USTREAMER_FN_ADD_FORWARDING_RULE_TAG: &str = "add_forwarding_rule():";
 const USTREAMER_FN_DELETE_FORWARDING_RULE_TAG: &str = "delete_forwarding_rule():";
-
-fn uauthority_to_uuri(authority_name: &str) -> UUri {
-    UUri {
-        authority_name: authority_name.to_string(),
-        ue_id: 0x0000_FFFF,     // any instance, any service
-        ue_version_major: 0xFF, // any
-        resource_id: 0xFFFF,    // any
-        ..Default::default()
-    }
-}
-
-fn any_uuri() -> UUri {
-    UUri {
-        authority_name: "*".to_string(),
-        ue_id: 0x0000_FFFF,     // any instance, any service
-        ue_version_major: 0xFF, // any
-        resource_id: 0xFFFF,    // any
-        ..Default::default()
-    }
-}
 
 // Used to track any errors in creating forwarding listeners
 pub enum ForwardingListenerError {

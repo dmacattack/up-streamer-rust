@@ -21,3 +21,5 @@ pub use endpoint::Endpoint;
 
 mod ustreamer;
 pub use ustreamer::UStreamer;
+
+mod uurihandler;
